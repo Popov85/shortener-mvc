@@ -24,7 +24,7 @@ public class ShortenerReadController {
         log.debug("Requested the original long URL, short = {}", shortUrl);
         var longUrl = codec.decode(shortUrl);
         if (longUrl.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            throw new RuntimeException("Not found!");
         }
         // The browser automatically follows the Location header in a 3xx response (302, 301, 307, etc.).
         return ResponseEntity

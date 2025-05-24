@@ -24,10 +24,6 @@ spring:
     locations: classpath:db/migration
     validate-on-migrate: true
 
-#server:
-  #servlet:
-    #context-path: /api  # All endpoints will now start with /api
-
 management:
   endpoints:
     web:
