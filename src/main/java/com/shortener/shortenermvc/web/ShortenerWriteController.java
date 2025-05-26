@@ -1,6 +1,7 @@
 package com.shortener.shortenermvc.web;
 
 import com.shortener.shortenermvc.service.Codec;
+import io.micrometer.core.instrument.MeterRegistry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,10 +23,13 @@ public class ShortenerWriteController {
 
     private final Codec codec;
 
+    private final MeterRegistry meterRegistry;
+
     // Return short URL
     @PostMapping
     public ResponseEntity<String> submitLongUrl(@RequestBody String longUrl) {
         log.debug("Requested encoding long URL = {}", longUrl);
+        meterRegistry.counter("urls-counter").increment();
         String shortUrl = codec.encode(longUrl);
         var response = baseUrl + "/" + shortUrl;
         return ResponseEntity.ok(response);

@@ -12,9 +12,9 @@ import java.util.concurrent.ConcurrentHashMap;
 @Primary
 public class CodecInMemoryImpl implements Codec {
 
-    private static final Map<String, String> SHORT_TO_LONG_STORAGE = new ConcurrentHashMap<>();
+    public final Map<String, String> SHORT_TO_LONG_STORAGE = new ConcurrentHashMap<>();
 
-    private static final Map<String, String> LONG_TO_SHORT_STORAGE = new ConcurrentHashMap<>();
+    public final Map<String, String> LONG_TO_SHORT_STORAGE = new ConcurrentHashMap<>();
 
     private static final String BASE62 = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
