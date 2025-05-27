@@ -1,6 +1,8 @@
 spring:
   application:
     name: shortener-mvc
+
+#----------Virtual threads----------
   threads:
     virtual:
       enabled: true
@@ -24,11 +26,19 @@ spring:
     locations: classpath:db/migration
     validate-on-migrate: true
 
+server:
+  tomcat:
+    mbeanregistry:
+      enabled: true
+
 management:
   endpoints:
     web:
       exposure:
         include: prometheus, health, info
+  metrics:
+    enable:
+      tomcat: true
   prometheus:
     metrics:
       export:
