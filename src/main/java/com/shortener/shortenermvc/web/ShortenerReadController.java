@@ -20,9 +20,10 @@ public class ShortenerReadController {
     // Return redirect to the long URL
     @GetMapping("/{shortUrl}")
     public ResponseEntity<String> getRedirected(@PathVariable String shortUrl) {
-        log.debug("Current thread = {}", Thread.currentThread().isVirtual());
+        //log.debug("Current thread virtual = {}", Thread.currentThread().isVirtual());
         log.debug("Requested the original long URL, short = {}", shortUrl);
         var longUrl = codec.decode(shortUrl);
+        //log.debug("Found long URL = {}", longUrl);
         if (longUrl.isEmpty()) {
             throw new RuntimeException("Not found!");
         }

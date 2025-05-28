@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ShortenerWriteController {
 
     // It is essentially Spring’s version of the Elvis operator (?:) — used for fallback/default values.
-    @Value("${shortener.base-url:https://www.shortener.com}")
+    @Value("${shortener.base-url:http://localhost:8080}")
     private String baseUrl;
 
     private final Codec codec;
@@ -31,7 +31,7 @@ public class ShortenerWriteController {
         log.debug("Requested encoding long URL = {}", longUrl);
         meterRegistry.counter("urls-counter").increment();
         String shortUrl = codec.encode(longUrl);
-        var response = baseUrl + "/" + shortUrl;
+        var response = baseUrl + "/r/" + shortUrl;
         return ResponseEntity.ok(response);
     }
 }
