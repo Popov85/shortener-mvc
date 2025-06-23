@@ -1,4 +1,4 @@
-package com.shortener.shortenermvc.service;
+package com.shortener.shortenermvc.service.other;
 
 public interface Base62 {
     String encode(String original);

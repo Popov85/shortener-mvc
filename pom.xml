@@ -44,6 +44,10 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
@@ -59,10 +63,6 @@
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
             <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-java21</artifactId>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -105,6 +105,16 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>11.9.0</version>
+                <configuration>
+                    <serverId>flyway-shortener-db</serverId>
+                    <url>jdbc:postgresql://localhost:5432/shortener</url>
+                    <cleanDisabled>false</cleanDisabled>
                 </configuration>
             </plugin>
         </plugins>

@@ -1,4 +1,4 @@
-package com.shortener.shortenermvc.service;
+package com.shortener.shortenermvc.service.other;
 
 import java.util.Optional;
 

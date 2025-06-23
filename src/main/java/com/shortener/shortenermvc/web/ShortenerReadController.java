@@ -20,17 +20,18 @@ public class ShortenerReadController {
     // Return redirect to the long URL
     @GetMapping("/{shortUrl}")
     public ResponseEntity<String> getRedirected(@PathVariable String shortUrl) {
-        //log.debug("Current thread virtual = {}", Thread.currentThread().isVirtual());
         log.debug("Requested the original long URL, short = {}", shortUrl);
         var longUrl = codec.decode(shortUrl);
-        //log.debug("Found long URL = {}", longUrl);
-        if (longUrl.isEmpty()) {
+
+        if (longUrl==null) {
             throw new RuntimeException("Not found!");
         }
+
+        log.debug("Found long URL = {}", longUrl);
         // The browser automatically follows the Location header in a 3xx response (302, 301, 307, etc.).
         return ResponseEntity
                 .status(302)
-                .header("Location", longUrl.get())
+                .header("Location", longUrl)
                 .build();
     }
 }

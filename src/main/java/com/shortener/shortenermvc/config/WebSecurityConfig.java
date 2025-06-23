@@ -28,7 +28,7 @@ public class WebSecurityConfig {
                         -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/r/*").permitAll() // Example public endpoint
-                        .requestMatchers("/url*").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/url/**").permitAll() //.hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/actuator/**").hasAnyRole("ADMIN", "PROMETHEUS")
                         .anyRequest().authenticated()  // Secure all API endpoints
                 )

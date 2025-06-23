@@ -1,20 +1,20 @@
 package com.shortener.shortenermvc.service;
 
+import io.micrometer.core.annotation.Timed;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 @Primary
 public class CodecInMemoryImpl implements Codec {
 
-    public final Map<String, String> SHORT_TO_LONG_STORAGE = new ConcurrentHashMap<>();
+    public static final Map<String, String> SHORT_TO_LONG_STORAGE = new ConcurrentHashMap<>();
 
-    public final Map<String, String> LONG_TO_SHORT_STORAGE = new ConcurrentHashMap<>();
+    public static final Map<String, String> LONG_TO_SHORT_STORAGE = new ConcurrentHashMap<>();
 
     private static final String BASE62 = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -22,6 +22,7 @@ public class CodecInMemoryImpl implements Codec {
 
     private static final SecureRandom random = new SecureRandom();
 
+    @Timed(value = "shortener.encode.execution", description = "Time taken by myMethod")
     @Override
     public String encode(String longUrl) {
         if (LONG_TO_SHORT_STORAGE.containsKey(longUrl)) {
@@ -49,11 +50,11 @@ public class CodecInMemoryImpl implements Codec {
     }
 
     @Override
-    public Optional<String> decode(String shortUrl) {
-        return Optional.ofNullable(SHORT_TO_LONG_STORAGE.get(shortUrl));
+    public String decode(String shortUrl) {
+        return SHORT_TO_LONG_STORAGE.get(shortUrl);
     }
 
-    public String generate(int length) {
+    private String generate(int length) {
         StringBuilder sb = new StringBuilder(length);
         for (int i = 0; i < length; i++) {
             int index = random.nextInt(BASE62_CHARS.length);

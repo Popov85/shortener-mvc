@@ -26,8 +26,8 @@ public class ShortenerWriteController {
     private final MeterRegistry meterRegistry;
 
     // Return short URL
-    @PostMapping
-    public ResponseEntity<String> submitLongUrl(@RequestBody String longUrl) {
+    @PostMapping("/")
+    public ResponseEntity<String> submitLongUrlBody(@RequestBody String longUrl) {
         log.debug("Requested encoding long URL = {}", longUrl);
         meterRegistry.counter("urls-counter").increment();
         String shortUrl = codec.encode(longUrl);
